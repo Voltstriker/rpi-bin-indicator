@@ -5,7 +5,7 @@ class Bins:
         self.bin_day = bin_day # 0 = Monday, 1 = Tuesday, 2 = Wednesday, 3 = Thursday, 4 = Friday, 5 = Saturday, 6 = Sunday
         self.bin_schedule = bin_schedule
 
-    def next_bin_date(self, date:datetime):
+    def next_bin_date(self, date:datetime) -> datetime:
         """Return the next bin date after the given date.
 
         :param date: The reference date to start from.
@@ -20,7 +20,7 @@ class Bins:
         return (date + timedelta(days=days_ahead))
 
 
-    def next_bin_type(self, date:datetime):
+    def next_bin_type(self, date:datetime) -> str:
         bins_out = []
         for bin_type, schedule in self.bin_schedule.items():
             start_date = schedule["start"]
@@ -39,6 +39,30 @@ class Bins:
             return "Recycling"
         else:
             return "No bin"
+
+    def sense_hat_pattern(self, colour_1: tuple, colour_2: tuple = ()) -> list:
+        if colour_2 == (): # If only one bin is due
+            colour_2 = colour_1
+
+        O = (0, 0, 0) # Black
+        P = colour_1 # Primary bin colour
+        S = colour_2 # Optional secondary bin colour if two bins are due
+
+        # Create a bin logo pattern for the Sense HAT
+        logo = [
+            O, O, O, O, O, O, O, O,
+            O, O, P, P, P, P, O, O,
+            P, P, P, P, P, P, P, P,
+            O, P, S, P, P, S, P, O,
+            O, P, P, S, S, P, P, O,
+            O, P, P, S, S, P, P, O,
+            O, P, S, P, P, S, P, O,
+            O, P, P, P, P, P, P, O,
+        ]
+
+        return logo
+
+
 
 
 

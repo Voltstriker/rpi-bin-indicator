@@ -20,34 +20,30 @@ def main():
     s = SenseHat()
     s.low_light = True
 
-    while True:
-        # Obtain the current date to assess the next bin day
-        date = datetime.today()
+    # Obtain the current date to assess the next bin day
+    date = datetime.today()
 
-        # Define new bin object
-        bin = Bins(bin_day, bin_schedule)
+    # Define new bin object
+    bin = Bins(bin_day, bin_schedule)
 
-        # Get the next bin details
-        next_bin_date = bin.next_bin_date(date)
-        bin_type = bin.next_bin_type(next_bin_date)
-        print(f"Next {bin_type} bin pickup is on {next_bin_date}")
+    # Get the next bin details
+    next_bin_date = bin.next_bin_date(date)
+    bin_type = bin.next_bin_type(next_bin_date)
+    print(f"Next {bin_type} bin pickup is on {next_bin_date}")
 
-        # Display the bin type on the Sense HAT
-        if bin_type == "Recycling":
-            led = bin.sense_hat_pattern(yellow)
-        elif bin_type == "Organics":
-            led = bin.sense_hat_pattern(green)
-        elif bin_type == "Glass":
-            led = bin.sense_hat_pattern(purple)
-        elif bin_type == "Glass and Organics":
-            led = bin.sense_hat_pattern(green, purple)
-        else:
-            led = bin.sense_hat_pattern(black)
+    # Display the bin type on the Sense HAT
+    if bin_type == "Recycling":
+        led = bin.sense_hat_pattern(yellow)
+    elif bin_type == "Organics":
+        led = bin.sense_hat_pattern(green)
+    elif bin_type == "Glass":
+        led = bin.sense_hat_pattern(purple)
+    elif bin_type == "Glass and Organics":
+        led = bin.sense_hat_pattern(green, purple)
+    else:
+        led = bin.sense_hat_pattern(black)
 
-        s.set_pixels(led)
+    s.set_pixels(led)
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        pass
+    main()

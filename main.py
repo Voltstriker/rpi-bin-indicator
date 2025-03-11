@@ -30,7 +30,7 @@ def main():
         # Get the next bin details
         next_bin_date = bin.next_bin_date(date)
         bin_type = bin.next_bin_type(next_bin_date)
-        print(f"Next {bin_type} bin pickup is on {next_bin_date.strftime("%Y-%m-%d")}")
+        print(f"Next {bin_type} bin pickup is on {next_bin_date}")
 
         # Display the bin type on the Sense HAT
         if bin_type == "Recycling":

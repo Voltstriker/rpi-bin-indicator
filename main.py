@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from datetime import datetime, timedelta
 from bins import Bins
 from sense_hat import SenseHat

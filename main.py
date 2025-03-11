@@ -20,8 +20,10 @@ bin_schedule = {
 }
 
 def main():
+    # Initialise the Sense HAT object
     s = SenseHat()
-    s.low_light = True
+    s.low_light = True # Set the brightness of the LEDs to a lower level
+    s.rotation = 180 # Rotate the display 180 degrees
 
     # Obtain the current date to assess the next bin day
     date = datetime.today()
@@ -34,7 +36,7 @@ def main():
     bin_type = bin.next_bin_type(next_bin_date)
     print(f"Next {bin_type} bin pickup is on {next_bin_date:%Y-%m-%d}")
 
-    # Display the bin type on the Sense HAT
+    # Obtain the LED pattern for the bin type
     if bin_type == "Recycling":
         led = bin.sense_hat_pattern(yellow)
     elif bin_type == "Organics":
@@ -46,6 +48,7 @@ def main():
     else:
         led = bin.sense_hat_pattern(black)
 
+    # Display the bin pattern on the Sense HAT
     s.set_pixels(led)
 
 if __name__ == "__main__":

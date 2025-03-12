@@ -16,8 +16,14 @@ class Bins:
         # Calculate the number of days ahead to the next bin day
         days_ahead = (self.bin_day - date.weekday()) % 7
 
+        # If the bin day is today, check if the bins have already been collected (assume 9am collection time)
+        if days_ahead == 0:
+            if date.hour >= 9:
+                days_ahead = 7
+        next_date = date + timedelta(days=days_ahead)
+
         # Return the date the bin is due to be collected
-        return (date + timedelta(days=days_ahead))
+        return next_date
 
 
     def next_bin_type(self, date:datetime) -> str:

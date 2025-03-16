@@ -40,19 +40,25 @@ def main():
     # Get the next bin details
     next_bin_date = bins.next_bin_date(date)
     bin_type = bins.next_bin_type(next_bin_date)
-    print(f"Next {bin_type} bin pickup is on {next_bin_date:%Y-%m-%d}")
+
+    # Print the next bin collection day and type
+    # If no bin is scheduled, print an error message and display a black LED pattern
+    if "No bin" in bin_type:
+        print("Error: No bin collection scheduled")
+        led = bins.sense_hat_pattern(black)
+        return
+
+    # If two bins are scheduled, print both bin types
+    if len(bin_type) == 2:
+        print(f"Next bin pickup is on {next_bin_date:%Y-%m-%d} for {bin_type[0]} and {bin_type[1]}")
+    else:
+        print(f"Next bin pickup is on {next_bin_date:%Y-%m-%d} for {bin_type[0]}")
 
     # Obtain the LED pattern for the bin type
-    if bin_type == "Recycling":
-        led = bins.sense_hat_pattern(yellow)
-    elif bin_type == "Organics":
-        led = bins.sense_hat_pattern(green)
-    elif bin_type == "Glass":
-        led = bins.sense_hat_pattern(purple)
-    elif bin_type == "Glass and Organics":
-        led = bins.sense_hat_pattern(green, purple)
-    else:
-        led = bins.sense_hat_pattern(black)
+    colour_primary = bin_schedule[bin_type[0]]["colour"]
+    colour_secondary = bin_schedule[bin_type[1]]["colour"] if len(bin_type) == 2 else bin_schedule[bin_type[0]]["colour"]
+
+    led = bins.sense_hat_pattern(colour_primary, colour_secondary)
 
     # Display the bin pattern on the Sense HAT
     s.set_pixels(led)

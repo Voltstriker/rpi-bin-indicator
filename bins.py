@@ -35,16 +35,10 @@ class Bins:
             if delta_weeks % frequency == 0:
                 bins_out.append(bin_type)
 
-        if "Glass" in bins_out and "Organics" in bins_out:
-            return "Glass and Organics"
-        elif "Glass" in bins_out:
-            return "Glass"
-        elif "Organics" in bins_out:
-            return "Organics"
-        elif "Recycling" in bins_out:
-            return "Recycling"
-        else:
-            return "No bin"
+        if len(bins_out) == 0:
+            return ["No bin"]
+
+        return bins_out
 
     def sense_hat_pattern(self, colour_1: tuple, colour_2: tuple = ()) -> list:
         if colour_2 == (): # If only one bin is due

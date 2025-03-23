@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import List
 
 class Bins:
     def __init__(self, bin_day:int, bin_schedule:dict) -> None:
@@ -26,7 +27,7 @@ class Bins:
         return next_date
 
 
-    def next_bin_type(self, date:datetime) -> str:
+    def next_bin_type(self, date:datetime) -> List[str]:
         bins_out = []
         for bin_type, schedule in self.bin_schedule.items():
             start_date = schedule["start"]
